@@ -89,11 +89,7 @@ class BlueBot(discord.Client):
                 await message.reply(f"Starting {desired_game['name']} server", mention_author=True)
                 start_game(game=desired_game)
                 await message.reply(
-<<<<<<< HEAD
                     f"game is up and running! You can connect to {desired_game['url']}\nThe Server will automatically stop at 2am.",
-=======
-                    f"game is up and running! You can connect to {desired_game['url']}",
->>>>>>> 8db034a (Create bot.py)
                     mention_author=True,
                 )
             else:
