@@ -39,6 +39,7 @@ def start_game(game):
     endpoint = ""
     print("searching for the node this container belongs to")
     for node in proxmox_token["endpoints"]:
+        print(f"looking in inventory of {node}")
         lxc_container = proxmox.nodes(node).lxc.get()
         desired_container = [
             cnt for cnt in lxc_container if cnt["name"] == game["container"]
