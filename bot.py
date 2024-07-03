@@ -24,7 +24,7 @@ with open("games.json", "r") as handle:
 
 
 def start_game(game):
-    print("starting game")
+    print("connecting to the proxmox host")
     proxmox = ProxmoxAPI(
         proxmox_token["endpoints"][0],
         user=proxmox_token["user"],
@@ -37,6 +37,7 @@ def start_game(game):
 
     game_server = ""
     endpoint = ""
+    print("searching for the node this container belongs to")
     for node in proxmox_token["endpoints"]:
         lxc_container = proxmox.nodes(node).lxc.get()
         desired_container = [
@@ -45,6 +46,7 @@ def start_game(game):
         if len(desired_container) == 1:
             game_server = desired_container[0]
             endpoint = node
+            print(f"found it on {node}")
             break
         else:
             continue
@@ -54,7 +56,7 @@ def start_game(game):
         exit()
 
     if game_server["status"] == "stopped":
-        print("starting container")
+        print(f"starting container with id {game_server['vmid']}")
         proxmox.nodes(endpoint).lxc(
             game_server["vmid"]
         ).status.start.post()
