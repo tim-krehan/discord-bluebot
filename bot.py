@@ -78,8 +78,8 @@ class BlueBot(discord.Client):
             reply_content = (
                 f"Currently there are {len(games.keys())} supported game(s):\n"
             )
-            for key, game in games:
-                reply_content += f"- {game.name}\n"
+            for game in games.keys():
+                reply_content += f"- {games[game]['name']}\n"
             reply_content += (
                 "Type ``` >start server [GAMENAME] ``` to start that game server"
             )
